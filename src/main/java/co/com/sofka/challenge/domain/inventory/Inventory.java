@@ -20,7 +20,7 @@ public class Inventory extends AggregateEvent<InventoryId> {
 
     public Inventory(InventoryId entityId){
         super(entityId);
-        //subscribe(new inventoryChange(this))
+        subscribe(new InventoryChange(this));
     }
 
     public Inventory from(InventoryId inventoryId, List<DomainEvent> eventList){

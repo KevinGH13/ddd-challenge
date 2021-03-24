@@ -22,7 +22,7 @@ public class Borrow extends AggregateEvent<BorrowId> {
 
     public Borrow(BorrowId entityId) {
         super(entityId);
-        //subscribe(new borrowChange(this))
+        subscribe(new BorrowChange(this));
     }
 
     public Borrow from(BorrowId borrowId, List<DomainEvent> eventList){
