@@ -7,7 +7,9 @@ public class BorrowId extends Identity {
         super(uid);
     }
 
-    public BorrowId of(String uid){
+    public BorrowId(){}
+
+    public static BorrowId of(String uid){
         return new BorrowId(uid);
     }
 }

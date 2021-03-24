@@ -11,7 +11,7 @@ public class BookId extends Identity {
 
     }
 
-    public BookId of(String uid){
+    public static BookId of(String uid){
         return new BookId(uid);
     }
 }
