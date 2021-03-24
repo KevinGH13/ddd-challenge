@@ -1,7 +1,6 @@
-package co.com.sofka.challenge.domain.inventory.values;
+package co.com.sofka.challenge.domain.inventory;
 
-import co.com.sofka.challenge.domain.inventory.Author;
-import co.com.sofka.challenge.domain.inventory.Collection;
+import co.com.sofka.challenge.domain.inventory.values.*;
 import co.com.sofka.domain.generic.Entity;
 
 import java.time.LocalDate;
