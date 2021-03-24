@@ -1,6 +1,7 @@
 package co.com.sofka.challenge.domain.borrow;
 
 import co.com.sofka.challenge.domain.borrow.events.BorrowCreated;
+import co.com.sofka.challenge.domain.borrow.events.RegisteredBorrowRequest;
 import co.com.sofka.domain.generic.EventChange;
 
 public class BorrowChange extends EventChange {
@@ -9,5 +10,7 @@ public class BorrowChange extends EventChange {
             borrow.booksId = event.getBookId();
             borrow.user = event.getUser();
         });
+
+        apply((RegisteredBorrowRequest event) -> borrow.ticket = event.getTicket());
     }
 }

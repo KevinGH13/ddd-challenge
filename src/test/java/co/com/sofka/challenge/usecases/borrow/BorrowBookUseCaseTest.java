@@ -2,11 +2,10 @@ package co.com.sofka.challenge.usecases.borrow;
 
 import co.com.sofka.business.generic.UseCaseHandler;
 import co.com.sofka.business.repository.DomainEventRepository;
-import co.com.sofka.business.support.RequestCommand;
 import co.com.sofka.business.support.TriggeredEvent;
 import co.com.sofka.challenge.domain.borrow.User;
 import co.com.sofka.challenge.domain.borrow.events.BorrowCreated;
-import co.com.sofka.challenge.domain.borrow.events.RegisteredUser;
+import co.com.sofka.challenge.domain.borrow.events.RegisteredBorrowRequest;
 import co.com.sofka.challenge.domain.borrow.values.BorrowId;
 import co.com.sofka.challenge.domain.borrow.values.Name;
 import co.com.sofka.challenge.domain.borrow.values.UserId;
@@ -21,10 +20,12 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
 import java.util.Set;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class RegisterUserIdUseCaseTest {
+class BorrowBookUseCaseTest {
 
     private final BorrowId borrowId = BorrowId.of("01");
     private final UserId userId = UserId.of("1018");
@@ -33,12 +34,11 @@ class RegisterUserIdUseCaseTest {
 
     @Mock
     private DomainEventRepository repository;
-
+    
     @Test
-    void registerUser(){
+    void borrowBook(){
         var event = createTriggeredEventWith();
-
-        var useCase = new RegisterUserUseCase();
+        var useCase = new BorrowBookUseCase();
 
         when(repository.getEventsBy(borrowId.value())).thenReturn(eventStored());
         useCase.addRepository(repository);
@@ -50,10 +50,12 @@ class RegisterUserIdUseCaseTest {
                 .orElseThrow()
                 .getDomainEvents();
 
-        var registeredUser = (RegisteredUser) events.get(0);
+        var registeredBorrowRequest = (RegisteredBorrowRequest) events.get(0);
 
-        Assertions.assertEquals("1018", registeredUser.getUser().identity().toString());
+        Assertions.assertEquals("01", registeredBorrowRequest.getBorrowId().value());
+
     }
+
 
     private BorrowCreated createTriggeredEventWith(){
         var event = new BorrowCreated(borrowId, new User(userId, name.value()), bookIdSet);
@@ -64,7 +66,5 @@ class RegisterUserIdUseCaseTest {
     private List<DomainEvent> eventStored(){
         return List.of(new BorrowCreated(borrowId, new User(userId, name.value()), bookIdSet));
     }
-
-
 
 }
