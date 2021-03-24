@@ -7,7 +7,7 @@ public class AuthorId extends Identity {
         super(uid);
     }
 
-    public AuthorId of(String uid){
+    public static AuthorId of(String uid){
         return new AuthorId(uid);
     }
 }

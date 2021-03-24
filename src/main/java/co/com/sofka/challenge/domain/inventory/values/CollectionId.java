@@ -7,7 +7,7 @@ public class CollectionId extends Identity {
         super(uid);
     }
 
-    public CollectionId of(String uid){
+    public static CollectionId of(String uid){
         return new CollectionId(uid);
     }
 }

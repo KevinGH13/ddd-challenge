@@ -7,6 +7,10 @@ public class BookId extends Identity {
         super(uid);
     }
 
+    public BookId(){
+
+    }
+
     public BookId of(String uid){
         return new BookId(uid);
     }
