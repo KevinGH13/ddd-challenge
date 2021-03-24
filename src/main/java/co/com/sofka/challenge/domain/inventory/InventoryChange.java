@@ -10,12 +10,17 @@ import java.util.HashMap;
 public class InventoryChange extends EventChange {
     public InventoryChange(Inventory inventory){
 
-        apply((InventoryCreated event) -> inventory.books = new HashMap<>());
+        apply((InventoryCreated event) -> {
+            inventory.books = new HashMap<>();
+            inventory.booksInStock = 0;
+            inventory.booksOnload = 0;
+        } );
 
         apply((RegisteredBook event) -> {
             var bookId = new BookId();
             inventory.books = new HashMap<>();
             inventory.books.put(bookId, event.getBook());
+            inventory.booksInStock++;
         });
 
     }

@@ -6,6 +6,7 @@ import co.com.sofka.challenge.domain.inventory.events.RegisteredBook;
 import co.com.sofka.challenge.domain.inventory.factory.BookFactory;
 import co.com.sofka.challenge.domain.inventory.values.BookId;
 import co.com.sofka.challenge.domain.inventory.values.InventoryId;
+import co.com.sofka.challenge.domain.inventory.values.Name;
 import co.com.sofka.domain.generic.AggregateEvent;
 import co.com.sofka.domain.generic.DomainEvent;
 
@@ -15,12 +16,15 @@ import java.util.Map;
 
 public class Inventory extends AggregateEvent<InventoryId> {
 
+    protected Name name;
     protected Map<BookId, Book> books;
+    protected Integer booksInStock;
+    protected Integer booksOnload;
 
-    public Inventory(InventoryId entityId, Map<BookId, Book> books) {
+    public Inventory(InventoryId entityId, Name name) {
         super(entityId);
-        this.books = books;
-        appendChange(new InventoryCreated(entityId, new ArrayList<>(books.values()))).apply();
+        this.name = name;
+        appendChange(new InventoryCreated(entityId, name)).apply();
     }
 
     public Inventory(InventoryId entityId){
@@ -46,7 +50,17 @@ public class Inventory extends AggregateEvent<InventoryId> {
         bookFactory.books().forEach(book -> appendChange(new RegisteredBook(book)).apply());
     }
 
+    public Name name(){return name;}
+
     public Map<BookId, Book> books(){
         return books;
+    }
+
+    public Integer booksInStock(){
+        return booksInStock;
+    }
+
+    public Integer BooksOnload(){
+        return booksOnload;
     }
 }

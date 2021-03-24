@@ -9,7 +9,7 @@ public class InventoryId extends Identity {
 
     public InventoryId(){}
 
-    public InventoryId of(String uid) {
+    public static InventoryId of(String uid) {
         return new InventoryId(uid);
     }
 }
