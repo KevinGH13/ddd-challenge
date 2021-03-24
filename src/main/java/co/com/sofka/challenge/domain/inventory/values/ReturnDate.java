@@ -2,18 +2,18 @@ package co.com.sofka.challenge.domain.inventory.values;
 
 import co.com.sofka.domain.generic.ValueObject;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
-public class ReturnDate implements ValueObject<Date> {
-    private final Date value;
+public class ReturnDate implements ValueObject<LocalDate> {
+    private final LocalDate value;
 
-    public ReturnDate(Date value){
+    public ReturnDate(LocalDate value){
         this.value = Objects.requireNonNull(value);
     }
 
     @Override
-    public Date value() {
+    public LocalDate value() {
         return value;
     }
 }

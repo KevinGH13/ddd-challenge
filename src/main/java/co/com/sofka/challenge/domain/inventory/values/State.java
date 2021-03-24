@@ -4,16 +4,16 @@ import co.com.sofka.domain.generic.ValueObject;
 
 import java.util.Objects;
 
-public class Status implements ValueObject<Boolean> {
+public class State implements ValueObject<BookState> {
 
-    private final Boolean value;
+    private final BookState value;
 
-    public Status(Boolean value) {
+    public State(BookState value) {
         this.value = Objects.requireNonNull(value);
     }
 
     @Override
-    public Boolean value() {
+    public BookState value() {
         return value;
     }
 }
