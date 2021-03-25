@@ -8,6 +8,7 @@ import co.com.sofka.challenge.domain.borrow.events.BorrowUpdated;
 import co.com.sofka.challenge.domain.borrow.values.BorrowId;
 import co.com.sofka.challenge.domain.borrow.values.UserId;
 import co.com.sofka.challenge.domain.inventory.values.BookId;
+import co.com.sofka.challenge.domain.inventory.values.InventoryId;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -17,12 +18,13 @@ import java.util.Set;
 class UpdateBorrowUseCaseTest {
 
     private final BorrowId borrowId = BorrowId.of("01");
+    private final InventoryId inventoryId = InventoryId.of("1");
     private final Set<BookId> bookIdSet = Set.of(BookId.of("123-234"));
     private final User user = new User(UserId.of("1018"), "Kev");
 
     @Test
     void updateBorrow(){
-        var command = new UpdateBorrow(borrowId, bookIdSet, user, LocalDate.now());
+        var command = new UpdateBorrow(borrowId, inventoryId, bookIdSet, user, LocalDate.now());
         var useCase = new UpdateBorrowUseCase();
 
         var event = UseCaseHandler

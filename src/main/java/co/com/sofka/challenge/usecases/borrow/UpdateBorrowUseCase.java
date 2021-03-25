@@ -11,7 +11,7 @@ public class UpdateBorrowUseCase extends UseCase<RequestCommand<UpdateBorrow>, R
     @Override
     public void executeUseCase(RequestCommand<UpdateBorrow> updateBorrowRequestCommand) {
         var command = updateBorrowRequestCommand.getCommand();
-        var borrow = new Borrow(command.borrowId(), command.bookId(), command.user());
+        var borrow = new Borrow(command.borrowId(), command.inventoryId(), command.bookId(), command.user());
 
         borrow.updateBorrow(command.borrowId(), command.date());
 

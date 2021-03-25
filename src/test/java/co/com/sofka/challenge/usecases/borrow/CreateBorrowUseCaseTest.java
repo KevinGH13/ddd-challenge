@@ -8,22 +8,22 @@ import co.com.sofka.challenge.domain.borrow.events.BorrowCreated;
 import co.com.sofka.challenge.domain.borrow.values.BorrowId;
 import co.com.sofka.challenge.domain.borrow.values.UserId;
 import co.com.sofka.challenge.domain.inventory.values.BookId;
+import co.com.sofka.challenge.domain.inventory.values.InventoryId;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class CreateBorrowUseCaseTest {
 
+    private final InventoryId inventoryId = InventoryId.of("1");
     private final BorrowId borrowId = BorrowId.of("0001");
     private final User user = new User(UserId.of("1018"), "Kev");
     private final Set<BookId> booksId = Set.of(BookId.of("123-asd"));
 
     @Test
     void createBorrow(){
-        var command = new CreateBorrow(booksId, user);
+        var command = new CreateBorrow(inventoryId, booksId, user);
 
         var useCase = new CreateBorrowUseCase();
 

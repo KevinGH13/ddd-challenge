@@ -7,6 +7,7 @@ import co.com.sofka.challenge.domain.borrow.events.RegisteredUser;
 import co.com.sofka.challenge.domain.borrow.values.BorrowId;
 import co.com.sofka.challenge.domain.borrow.values.Ticket;
 import co.com.sofka.challenge.domain.inventory.values.BookId;
+import co.com.sofka.challenge.domain.inventory.values.InventoryId;
 import co.com.sofka.domain.generic.AggregateEvent;
 import co.com.sofka.domain.generic.DomainEvent;
 
@@ -15,13 +16,16 @@ import java.util.List;
 import java.util.Set;
 
 public class Borrow extends AggregateEvent<BorrowId> {
+
+    protected InventoryId inventoryId;
     protected Set<BookId> booksId;
     protected User user;
     protected Ticket ticket;
     protected LocalDate date;
 
-    public Borrow(BorrowId entityId, Set<BookId> booksId, User user) {
+    public Borrow(BorrowId entityId, InventoryId inventoryId, Set<BookId> booksId, User user) {
         super(entityId);
+        this.inventoryId = inventoryId;
         this.booksId = booksId;
         this.user = user;
         this.date = LocalDate.now();
@@ -54,6 +58,8 @@ public class Borrow extends AggregateEvent<BorrowId> {
     private String generateTicket(){
         return LocalDate.now() + Double.toString(((Math.random()*100) + 1));
     }
+
+    public InventoryId inventoryId(){ return inventoryId; }
 
     public Set<BookId> booksId(){
         return booksId;
