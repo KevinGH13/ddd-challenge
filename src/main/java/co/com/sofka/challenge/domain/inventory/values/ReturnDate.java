@@ -12,6 +12,10 @@ public class ReturnDate implements ValueObject<LocalDate> {
         this.value = Objects.requireNonNull(value);
     }
 
+    public ReturnDate updateReturnDate(LocalDate value){
+        return new ReturnDate(value);
+    }
+
     @Override
     public LocalDate value() {
         return value;

@@ -12,6 +12,10 @@ public class State implements ValueObject<BookState> {
         this.value = Objects.requireNonNull(value);
     }
 
+    public State changeState(BookState bookState){
+        return new State(bookState);
+    }
+
     @Override
     public BookState value() {
         return value;

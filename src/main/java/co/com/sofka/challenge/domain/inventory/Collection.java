@@ -16,6 +16,4 @@ public class Collection extends Entity<CollectionId> {
         return name;
     }
 
-    //TODO think about createCollection method and to implement
-
 }

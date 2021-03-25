@@ -56,14 +56,12 @@ public class Book extends Entity<BookId> {
 
     public InventoryId inventoryId(){ return inventoryId; }
 
-    //TODO Implement method changeState of Book
-    public void changeState(){
-
+    public void changeState(BookState state){
+        this.state.changeState(state);
     }
 
-    //TODO implement updateDateReturn
-    public void updateDateReturn(){
-
+    public void updateDateReturn(LocalDate date){
+        this.returnDate.updateReturnDate(date);
     }
 
 

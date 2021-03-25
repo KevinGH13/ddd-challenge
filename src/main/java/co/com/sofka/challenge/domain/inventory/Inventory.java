@@ -40,9 +40,6 @@ public class Inventory extends AggregateEvent<InventoryId> {
         return inventory;
     }
 
-    //TODO to implement method for remove a book of inventory
-    public void removeBook(){}
-
     public void createBook(BookFactory bookFactory){
         bookFactory.books().forEach(book -> appendChange(new BookCreated(book)).apply());
         registerBook(bookFactory);

@@ -21,8 +21,7 @@ import java.util.logging.Logger;
 @Service
 public class RabbitMQEventBus implements EventBus {
     private static final String EXCHANGE = "core-ddd-challenge";
-    //TODO change topic bussiness error
-    private static final String TOPIC_BUSINESS_ERROR = "org.example.nomemientan.business.error";
+    private static final String TOPIC_BUSINESS_ERROR = "co.com.sofka.challenge.business.error";
     private static final Logger logger = Logger.getLogger(RabbitMQEventBus.class.getName());
 
     private final RabbitTemplate rabbitTemplate;

@@ -24,7 +24,7 @@ public class InventoryChange extends EventChange {
 
         apply((BooksInStockUpdated event) -> {
             inventory.booksInStock = new Stock(1);
-            inventory.increaseStock(event.getBooksOutStock());
+            inventory.decreaseStock(event.getBooksOutStock());
         });
 
     }
