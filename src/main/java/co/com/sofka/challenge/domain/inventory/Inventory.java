@@ -10,7 +10,6 @@ import co.com.sofka.challenge.domain.inventory.values.Name;
 import co.com.sofka.domain.generic.AggregateEvent;
 import co.com.sofka.domain.generic.DomainEvent;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -47,7 +46,7 @@ public class Inventory extends AggregateEvent<InventoryId> {
     }
 
     public void registerBook(BookFactory bookFactory){
-        bookFactory.books().forEach(book -> appendChange(new RegisteredBook(book)).apply());
+        bookFactory.books().forEach(book -> appendChange(new RegisteredBook(book, book.inventoryId())).apply());
     }
 
     public Name name(){return name;}

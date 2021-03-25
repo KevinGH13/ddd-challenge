@@ -1,11 +1,11 @@
 package co.com.sofka.challenge.domain.borrow;
 
 import co.com.sofka.challenge.domain.borrow.events.BorrowCreated;
+import co.com.sofka.challenge.domain.borrow.events.BorrowUpdated;
 import co.com.sofka.challenge.domain.borrow.events.RegisteredBorrowRequest;
 import co.com.sofka.challenge.domain.borrow.events.RegisteredUser;
 import co.com.sofka.challenge.domain.borrow.values.BorrowId;
 import co.com.sofka.challenge.domain.borrow.values.Ticket;
-import co.com.sofka.challenge.domain.inventory.Book;
 import co.com.sofka.challenge.domain.inventory.values.BookId;
 import co.com.sofka.domain.generic.AggregateEvent;
 import co.com.sofka.domain.generic.DomainEvent;
@@ -18,11 +18,13 @@ public class Borrow extends AggregateEvent<BorrowId> {
     protected Set<BookId> booksId;
     protected User user;
     protected Ticket ticket;
+    protected LocalDate date;
 
     public Borrow(BorrowId entityId, Set<BookId> booksId, User user) {
         super(entityId);
         this.booksId = booksId;
         this.user = user;
+        this.date = LocalDate.now();
         appendChange(new BorrowCreated(entityId, user, booksId)).apply();
     }
 
@@ -43,9 +45,12 @@ public class Borrow extends AggregateEvent<BorrowId> {
 
     public void registerBorrowRequest(BorrowId borrowId, Set<BookId> booksId, User user){
         var ticket = new Ticket(generateTicket());
-        appendChange(new RegisteredBorrowRequest(borrowId,  user, booksId, ticket)).apply();
+        appendChange(new RegisteredBorrowRequest(borrowId,  user, booksId, ticket, LocalDate.now())).apply();
     }
 
+    public void updateBorrow(BorrowId borrowId, LocalDate date){
+        appendChange(new BorrowUpdated(borrowId, date, new Ticket(generateTicket()))).apply();
+    }
     private String generateTicket(){
         return LocalDate.now() + Double.toString(((Math.random()*100) + 1));
     }

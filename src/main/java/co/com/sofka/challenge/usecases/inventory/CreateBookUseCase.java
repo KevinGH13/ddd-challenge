@@ -16,7 +16,7 @@ public class CreateBookUseCase extends UseCase<RequestCommand<CreateBook>, Respo
         var inventory = new Inventory(inventoryId);
         var factory = BookFactory.builder();
 
-        factory.newBook(command.bookId(), command.isbn(), command.author(), command.collection());
+        factory.newBook(command.bookId(), command.isbn(), command.author(), command.collection(), inventoryId);
 
         inventory.createBook(factory);
 

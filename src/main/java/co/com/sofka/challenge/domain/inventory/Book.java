@@ -12,21 +12,24 @@ public class Book extends Entity<BookId> {
     private final Collection collection;
     private final State state;
     private final ReturnDate returnDate;
+    private final InventoryId inventoryId;
 
-    public Book(BookId entityId, Isbn isbn, Author author, Collection collection, State state, ReturnDate returnDate) {
+    public Book(BookId entityId, Isbn isbn, Author author, Collection collection, State state, ReturnDate returnDate, InventoryId inventoryId) {
         super(entityId);
         this.isbn = isbn;
         this.author = author;
         this.collection = collection;
         this.state = state;
         this.returnDate = returnDate;
+        this.inventoryId = inventoryId;
     }
 
-    public Book(BookId entityId, Isbn isbn, Author author, Collection collection) {
+    public Book(BookId entityId, Isbn isbn, Author author, Collection collection, InventoryId inventoryId) {
         super(entityId);
         this.isbn = isbn;
         this.author = author;
         this.collection = collection;
+        this.inventoryId = inventoryId;
         this.state = new State(BookState.NOT_BORROWED);
         this.returnDate = new ReturnDate(LocalDate.now());
     }
@@ -50,6 +53,8 @@ public class Book extends Entity<BookId> {
     public ReturnDate returnDate(){
         return returnDate;
     }
+
+    public InventoryId inventoryId(){ return inventoryId; }
 
     //TODO Implement method changeState of Book
     public void changeState(){

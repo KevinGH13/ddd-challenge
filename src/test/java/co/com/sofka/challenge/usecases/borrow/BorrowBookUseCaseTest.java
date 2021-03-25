@@ -34,7 +34,7 @@ class BorrowBookUseCaseTest {
 
     @Mock
     private DomainEventRepository repository;
-    
+
     @Test
     void borrowBook(){
         var event = createTriggeredEventWith();

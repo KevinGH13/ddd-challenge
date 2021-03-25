@@ -4,6 +4,7 @@ import co.com.sofka.challenge.domain.inventory.Author;
 import co.com.sofka.challenge.domain.inventory.Book;
 import co.com.sofka.challenge.domain.inventory.Collection;
 import co.com.sofka.challenge.domain.inventory.values.BookId;
+import co.com.sofka.challenge.domain.inventory.values.InventoryId;
 import co.com.sofka.challenge.domain.inventory.values.Isbn;
 
 import java.util.HashSet;
@@ -20,8 +21,8 @@ public class BookFactory {
         return new BookFactory();
     }
 
-    public BookFactory newBook(BookId bookId, Isbn isbn, Author author, Collection collection){
-        books.add(new Book(bookId, isbn, author, collection));
+    public BookFactory newBook(BookId bookId, Isbn isbn, Author author, Collection collection, InventoryId inventoryId){
+        books.add(new Book(bookId, isbn, author, collection, inventoryId));
         return this;
     }
 
