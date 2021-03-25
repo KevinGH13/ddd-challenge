@@ -1,20 +1,20 @@
 package co.com.sofka.challenge.domain.inventory.events;
 
-import co.com.sofka.challenge.domain.inventory.Book;
 import co.com.sofka.challenge.domain.inventory.values.InventoryId;
 import co.com.sofka.challenge.domain.inventory.values.Name;
+import co.com.sofka.challenge.domain.inventory.values.Stock;
 import co.com.sofka.domain.generic.DomainEvent;
-
-import java.util.List;
 
 public class InventoryCreated extends DomainEvent {
     private final InventoryId inventoryId;
     private final Name name;
+    private final Stock booksInStock;
 
-    public InventoryCreated(InventoryId inventoryId, Name name) {
-        super("ddd.inventorycreated");
+    public InventoryCreated(InventoryId inventoryId, Name name, Stock booksInStock) {
+        super("ddd.inventory.inventorycreated");
         this.inventoryId = inventoryId;
         this.name = name;
+        this.booksInStock = booksInStock;
     }
 
     public InventoryId getInventoryId() {
@@ -23,5 +23,9 @@ public class InventoryCreated extends DomainEvent {
 
     public Name getName() {
         return name;
+    }
+
+    public Stock getBooksInStock() {
+        return booksInStock;
     }
 }

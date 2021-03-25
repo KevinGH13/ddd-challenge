@@ -12,16 +12,6 @@ public class User extends Entity<UserId> {
         this.name = name;
     }
 
-    //TODO implement method soliciteBorrow
-    public void soliciteBorrow(){
-
-    }
-
-    //TODO implement method returnBook
-    public void returnBook(){
-
-    }
-
     public String name(){
         return name;
     }

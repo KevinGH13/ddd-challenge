@@ -12,7 +12,6 @@ public class CreateBorrowUseCase extends UseCase<RequestCommand<CreateBorrow>, R
     public void executeUseCase(RequestCommand<CreateBorrow> createBorrowRequestCommand) {
         var command = createBorrowRequestCommand.getCommand();
         var borrowId = new BorrowId();
-
         var borrow = new Borrow(borrowId, command.inventoryId(), command.booksId(), command.user());
 
         emit().onResponse(new ResponseEvents(borrow.getUncommittedChanges()));

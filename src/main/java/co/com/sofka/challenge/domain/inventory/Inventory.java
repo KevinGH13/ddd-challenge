@@ -1,12 +1,14 @@
 package co.com.sofka.challenge.domain.inventory;
 
 import co.com.sofka.challenge.domain.inventory.events.BookCreated;
+import co.com.sofka.challenge.domain.inventory.events.BooksInStockUpdated;
 import co.com.sofka.challenge.domain.inventory.events.InventoryCreated;
 import co.com.sofka.challenge.domain.inventory.events.RegisteredBook;
 import co.com.sofka.challenge.domain.inventory.factory.BookFactory;
 import co.com.sofka.challenge.domain.inventory.values.BookId;
 import co.com.sofka.challenge.domain.inventory.values.InventoryId;
 import co.com.sofka.challenge.domain.inventory.values.Name;
+import co.com.sofka.challenge.domain.inventory.values.Stock;
 import co.com.sofka.domain.generic.AggregateEvent;
 import co.com.sofka.domain.generic.DomainEvent;
 
@@ -17,21 +19,22 @@ public class Inventory extends AggregateEvent<InventoryId> {
 
     protected Name name;
     protected Map<BookId, Book> books;
-    protected Integer booksInStock;
-    protected Integer booksOnload;
+    protected Stock booksInStock;
 
     public Inventory(InventoryId entityId, Name name) {
         super(entityId);
         this.name = name;
-        appendChange(new InventoryCreated(entityId, name)).apply();
+        this.booksInStock = new Stock(0);
+        appendChange(new InventoryCreated(entityId, name, booksInStock)).apply();
     }
 
     public Inventory(InventoryId entityId){
         super(entityId);
+        this.booksInStock = new Stock(0);
         subscribe(new InventoryChange(this));
     }
 
-    public Inventory from(InventoryId inventoryId, List<DomainEvent> eventList){
+    public static Inventory from(InventoryId inventoryId, List<DomainEvent> eventList){
         var inventory = new Inventory(inventoryId);
         eventList.forEach(inventory::applyEvent);
         return inventory;
@@ -49,17 +52,27 @@ public class Inventory extends AggregateEvent<InventoryId> {
         bookFactory.books().forEach(book -> appendChange(new RegisteredBook(book, book.inventoryId())).apply());
     }
 
+    public void updateBooksInStock(InventoryId inventoryId, Integer actualStock, Integer booksOutStock){
+        appendChange(new BooksInStockUpdated(inventoryId, actualStock, booksOutStock)).apply();
+
+    }
+
+    protected void increaseStock(Integer value){
+        this.booksInStock = this.booksInStock.increase(value);
+    }
+
+    protected void decreaseStock(Integer value){
+        this.booksInStock = this.booksInStock.decrease(value);
+    }
+
     public Name name(){return name;}
 
     public Map<BookId, Book> books(){
         return books;
     }
 
-    public Integer booksInStock(){
+    public Stock booksInStock(){
         return booksInStock;
     }
 
-    public Integer BooksOnload(){
-        return booksOnload;
-    }
 }

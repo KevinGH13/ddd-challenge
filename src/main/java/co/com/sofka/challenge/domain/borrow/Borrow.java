@@ -29,7 +29,7 @@ public class Borrow extends AggregateEvent<BorrowId> {
         this.booksId = booksId;
         this.user = user;
         this.date = LocalDate.now();
-        appendChange(new BorrowCreated(entityId, user, booksId)).apply();
+        appendChange(new BorrowCreated(entityId, inventoryId, user, booksId)).apply();
     }
 
     public Borrow(BorrowId entityId) {
